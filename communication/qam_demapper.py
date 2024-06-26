@@ -4,9 +4,8 @@ from communication.demapper_interface import DemapperInterface
 
 
 class QAMDemapper(DemapperInterface):
-    def demap(self, data):
-        # Example of 16-QAM demapping
-        symbol_map = {
+    def __init__(self):
+        self.symbol_map = {
             -3 - 3j: (0, 0, 0, 0),
             -3 - 1j: (0, 0, 0, 1),
             -3 + 3j: (0, 0, 1, 0),
@@ -24,5 +23,13 @@ class QAMDemapper(DemapperInterface):
             1 + 3j: (1, 1, 1, 0),
             1 + 1j: (1, 1, 1, 1),
         }
-        demapped_data = [symbol_map[symbol] for symbol in data]
+
+    def __closest_symbol(self, symbol):
+        """Return the closest symbol from the symbol map."""
+        return min(self.symbol_map.keys(), key=lambda x: np.abs(x - symbol))
+
+    def demap(self, data):
+        demapped_data = [
+            self.symbol_map[self.__closest_symbol(symbol)] for symbol in data
+        ]
         return np.array(demapped_data).flatten()
