@@ -13,5 +13,8 @@ RUN apt-get update && \
 RUN ln -sf /usr/bin/python3.10 /usr/bin/python3 && \
     ln -sf /usr/bin/python3.10 /usr/bin/python
 
+# numpy 설치
+RUN pip install numpy
+
 # 작업 디렉토리 설정
 WORKDIR /app
