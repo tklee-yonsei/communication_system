@@ -19,7 +19,7 @@ def test_awgn_noise_statistics():
     
     1. 가우시안 분포를 따르는지, 평균과 분산이 예상과 일치하는지를 검증합니다.
     """
-    signal = np.zeros(10000, dtype=np.float32)
+    signal = np.ones(10000, dtype=np.float32)
     noise = AWGNNoise(snr_db=10)
     noisy_signal = noise.apply(signal)
     noise_only = noisy_signal - signal
